@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>For You 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  overflow:hidden;
+  font-family:'Segoe UI',sans-serif;
+  color:#ff4fd8;
+}
+
+h1{
+  text-shadow:0 0 10px #ff4fd8,0 0 20px #ff4fd8;
+}
+
+.flower{
+  position:relative;
+  width:200px;
+  height:260px;
+  margin:10px;
+}
+
+.stem{
+  width:6px;height:150px;background:#2ecc71;
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+}
+
+.petals{
+  position:absolute;width:100px;height:100px;
+  top:-50px;left:50%;transform:translateX(-50%) scale(0);
+  transition:1s ease;
+}
+
+.petal{
+  width:50px;height:50px;background:#ff4fd8;border-radius:50%;
+  position:absolute;box-shadow:0 0 15px #ff4fd8;
+}
+.petal:nth-child(1){top:0;left:25px}
+.petal:nth-child(2){top:25px;left:0}
+.petal:nth-child(3){top:25px;left:50px}
+.petal:nth-child(4){top:50px;left:25px}
+
+.center{
+  width:22px;height:22px;background:gold;border-radius:50%;
+  position:absolute;top:39px;left:39px;box-shadow:0 0 10px gold;
+}
+
+.flower.open .petals{transform:translateX(-50%) scale(1)}
+
+.btn{
+  margin:6px;padding:10px 20px;border:none;border-radius:20px;
+  background:#ff4fd8;color:black;font-size:14px;cursor:pointer;
+  box-shadow:0 0 15px #ff4fd8;
+}
+
+.message{
+  margin-top:10px;
+  text-align:center;
+  min-height:50px;
+}
+
+.heart{
+  position:absolute;color:#ff4fd8;font-size:18px;
+  animation:float 8s linear infinite;
+  text-shadow:0 0 10px #ff4fd8;
+}
+
+@keyframes float{
+  from{transform:translateY(110vh);opacity:1}
+  to{transform:translateY(-120px);opacity:0}
+}
+
+#gameBox{
+  margin-top:10px;
+  padding:12px;
+  border:2px dashed #ff4fd8;
+  border-radius:12px;
+  width:260px;
+  text-align:center;
+}
+
+#clickMe{
+  font-size:30px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💗 Untuk Kamu 💗</h1>
+
+<div class="flower" onclick="bloom(this)">
+  <div class="stem"></div>
+  <div class="petals">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="center"></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" onclick="showSweet()">💬 Kata Manis</button>
+  <button class="btn" onclick="toggleMusic()">🎵 Music</button>
+</div>
+
+<div class="message" id="msg">Klik bunga & tombolnya ya 😘</div>
+
+<div id="gameBox">
+  <div>🎮 Mini Game: Klik Hatinya!</div>
+  <div id="clickMe" onclick="score++ ; updateScore()">💖</div>
+  <div>Score: <span id="score">0</span></div>
+</div>
+
+<!-- MUSIC -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/vGJTaP6anOU?autoplay=1&loop=1&playlist=vGJTaP6anOU"
+allow="autoplay"></iframe>
+
+<script>
+let playing=false;
+let score=0;
+
+const sweetWords=[
+"I love you more than words can say 💗",
+"Kamu itu rumah buat hatiku 🏡💞",
+"Hari aku lebih indah karena kamu ✨",
+"Senyummu bikin aku jatuh cinta lagi 😍",
+"Aku nggak butuh apa-apa selain kamu 💕",
+"Kamu itu favoritku seumur hidup 💖"
+];
+
+function bloom(el){
+  el.classList.toggle("open");
+}
+
+function showSweet(){
+  const m=sweetWords[Math.floor(Math.random()*sweetWords.length)];
+  document.getElementById("msg").innerText=m;
+}
+
+function toggleMusic(){
+  const music=document.getElementById("music");
+  if(!playing){
+    music.src="https://www.youtube.com/embed/vGJTaP6anOU?autoplay=1&loop=1&playlist=vGJTaP6anOU";
+    playing=true;
+  }else{
+    music.src="";
+    playing=false;
+  }
+}
+
+function updateScore(){
+  document.getElementById("score").innerText=score;
+}
+
+// Floating hearts
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*innerWidth+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},500);
+</script>
+
+</body>
+</html>
