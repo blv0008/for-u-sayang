@@ -2,125 +2,108 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>For youu 💗</title>
+<title>For You</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{
   margin:0;
   height:100vh;
   background:black;
-  display:flex;
+  color:#ff4fd8;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+}
+
+.page{
+  position:absolute;
+  inset:0;
+  display:none;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  overflow:hidden;
-  font-family:'Segoe UI',sans-serif;
-  color:#ff4fd8;
+  text-align:center;
 }
 
-h1{
-  text-shadow:0 0 10px #ff4fd8,0 0 20px #ff4fd8;
+.active{display:flex}
+
+h1{ text-shadow:0 0 12px #ff4fd8 }
+
+.btn{
+  margin:8px;
+  padding:10px 24px;
+  border:none;
+  border-radius:20px;
+  background:#ff4fd8;
+  color:black;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 0 12px #ff4fd8;
 }
 
-.flower{
-  position:relative;
-  width:200px;
-  height:260px;
-  margin:10px;
+/* GAME */
+#box{
+  width:200px;height:200px;
+  border:2px dashed #ff4fd8;
+  display:flex;justify-content:center;align-items:center;
+  margin:15px auto;
+  font-size:30px;
+  cursor:pointer;
 }
 
-.stem{
-  width:6px;height:150px;background:#2ecc71;
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-}
-
-.petals{
-  position:absolute;width:100px;height:100px;
-  top:-50px;left:50%;transform:translateX(-50%) scale(0);
-  transition:1s ease;
-}
-
-.petal{
-  width:50px;height:50px;background:#ff4fd8;border-radius:50%;
-  position:absolute;box-shadow:0 0 15px #ff4fd8;
-}
+/* FLOWER */
+.flower{position:relative;width:200px;height:260px}
+.stem{width:6px;height:150px;background:#2ecc71;position:absolute;bottom:0;left:50%;transform:translateX(-50%)}
+.petals{position:absolute;width:100px;height:100px;top:-50px;left:50%;transform:translateX(-50%) scale(0);transition:1s}
+.petal{width:50px;height:50px;background:#ff4fd8;border-radius:50%;position:absolute;box-shadow:0 0 15px #ff4fd8}
 .petal:nth-child(1){top:0;left:25px}
 .petal:nth-child(2){top:25px;left:0}
 .petal:nth-child(3){top:25px;left:50px}
 .petal:nth-child(4){top:50px;left:25px}
-
-.center{
-  width:22px;height:22px;background:gold;border-radius:50%;
-  position:absolute;top:39px;left:39px;box-shadow:0 0 10px gold;
-}
-
 .flower.open .petals{transform:translateX(-50%) scale(1)}
 
-.btn{
-  margin:6px;padding:10px 20px;border:none;border-radius:20px;
-  background:#ff4fd8;color:black;font-size:14px;cursor:pointer;
-  box-shadow:0 0 15px #ff4fd8;
-}
-
-.message{
-  margin-top:10px;
-  text-align:center;
-  min-height:50px;
-}
-
+/* FLOAT */
 .heart{
   position:absolute;color:#ff4fd8;font-size:18px;
   animation:float 8s linear infinite;
-  text-shadow:0 0 10px #ff4fd8;
 }
-
 @keyframes float{
-  from{transform:translateY(110vh);opacity:1}
-  to{transform:translateY(-120px);opacity:0}
-}
-
-#gameBox{
-  margin-top:10px;
-  padding:12px;
-  border:2px dashed #ff4fd8;
-  border-radius:12px;
-  width:260px;
-  text-align:center;
-}
-
-#clickMe{
-  font-size:30px;
-  cursor:pointer;
+  from{transform:translateY(110vh)}
+  to{transform:translateY(-120px)}
 }
 </style>
 </head>
 
 <body>
 
-<h1>💗 untuk kamuu 💗</h1>
-
-<div class="flower" onclick="bloom(this)">
-  <div class="stem"></div>
-  <div class="petals">
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="center"></div>
-  </div>
-</div>
-
-<div class="controls">
-  <button class="btn" onclick="showSweet()">💬 Kata Manis</button>
-  <button class="btn" onclick="toggleMusic()">🎵 Music</button>
-</div>
-
-<div class="message" id="msg">Klik bunga & tombolnya yaaa </div>
-
-<div id="gameBox">
-  <div>🎮 Mini Game: Klik Hatinya!</div>
-  <div id="clickMe" onclick="score++ ; updateScore()">💖</div>
+<!-- PAGE 1 GAME -->
+<div id="p1" class="page active">
+  <h1>🎮 Mini Game</h1>
+  <p>Klik kotaknya kalau muncul 💖</p>
+  <div id="box" onclick="hit()">⬛</div>
   <div>Score: <span id="score">0</span></div>
+  <button class="btn" onclick="go(2)">Next ➜</button>
+</div>
+
+<!-- PAGE 2 FLOWER -->
+<div id="p2" class="page">
+  <h1>🌸 Bunga Mekar</h1>
+  <div class="flower" onclick="bloom(this)">
+    <div class="stem"></div>
+    <div class="petals">
+      <div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div>
+    </div>
+  </div>
+  <p>Klik bunganya</p>
+  <button class="btn" onclick="go(3)">Next ➜</button>
+</div>
+
+<!-- PAGE 3 WORDS -->
+<div id="p3" class="page">
+  <h1>💬 Untuk Kamu</h1>
+  <p id="words">Klik tombolnya</p>
+  <button class="btn" onclick="nextWord()">Tampilkan</button>
+  <button class="btn" onclick="go(1)">⟲ Ulang</button>
 </div>
 
 <!-- MUSIC -->
@@ -129,38 +112,41 @@ src="https://www.youtube.com/embed/vGJTaP6anOU?autoplay=1&loop=1&playlist=vGJTaP
 allow="autoplay"></iframe>
 
 <script>
-let playing=false;
 let score=0;
+let current=1;
 
-const sweetWords=[
-"I love you more than words can say 💗",
-"Kamu itu bagaikan rumah yang hidup 🏡💞",
-"hari inii lebii happy karena adaa kamuu ✨",
-"trimakasii suda hadir di hidupkuu",
+const words=[
+"Aku nyaman sama kamu.",
+"Kamu bikin hari-hariku lebih tenang.",
+"Aku bersyukur bisa kenal kamu.",
+"Aku senang ada kamu di hidupku.",
+"Kamu itu berarti buat aku."
 ];
+
+function go(n){
+  document.getElementById("p"+current).classList.remove("active");
+  document.getElementById("p"+n).classList.add("active");
+  current=n;
+}
 
 function bloom(el){
   el.classList.toggle("open");
 }
 
-function showSweet(){
-  const m=sweetWords[Math.floor(Math.random()*sweetWords.length)];
-  document.getElementById("msg").innerText=m;
-}
-
-function toggleMusic(){
-  const music=document.getElementById("music");
-  if(!playing){
-    music.src="https://www.youtube.com/embed/vGJTaP6anOU?autoplay=1&loop=1&playlist=vGJTaP6anOU";
-    playing=true;
-  }else{
-    music.src="";
-    playing=false;
+function hit(){
+  if(document.getElementById("box").innerHTML==="💖"){
+    score++;
+    document.getElementById("score").innerText=score;
   }
 }
 
-function updateScore(){
-  document.getElementById("score").innerText=score;
+setInterval(()=>{
+  document.getElementById("box").innerHTML = Math.random()>0.5 ? "💖" : "⬛";
+},800);
+
+function nextWord(){
+  const w=words[Math.floor(Math.random()*words.length)];
+  document.getElementById("words").innerText=w;
 }
 
 // Floating hearts
@@ -176,4 +162,6 @@ setInterval(()=>{
 
 </body>
 </html>
+
+
 
